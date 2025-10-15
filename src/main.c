@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "game/game.h"
+#include "parser/parser.h"
+
+extern struct player* Player;
 
 int main(int argc, char *argv[]) {
-	struct player* player = InitGame();
+	Player = InitGame();
+	char* message;
 
-	puts(DescribePlayerPos(*player));
-	MovePlayer(player, NORTH);
-	puts(DescribePlayerPos(*player));
-
-	DestroyGame(&player);
+	DestroyGame(&Player);
 	return EXIT_SUCCESS;
 }
