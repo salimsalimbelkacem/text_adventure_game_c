@@ -1,13 +1,18 @@
 #include "./includes.h"
-#include "./game.h"
 
 typedef struct map_node* map_node;
 typedef struct player*	 player;
+
+player Player;
 
 map_node newNode ( const char description[50], const char name[50]) {
 	map_node p = malloc(sizeof(struct map_node));
 	strcpy( p->description, description);
 	strcpy( p->name, name);
+
+	for (int i = 0; i < 4; i++)
+		p->ajacent_nodes[i] = NULL;
+
 	return p;
 }
 
@@ -26,8 +31,8 @@ char* Describe(map_node n){
 
 // player API
 void MovePlayer (player p, int direction){
-	map_node pos = p->position;
-	p->position = pos->ajacent_nodes[direction];
+	map_node pos = p->position, next_pos = pos->ajacent_nodes[direction];
+	p->position = next_pos == NULL ? pos: next_pos;
 }
 
 char* DescribePlayerPos (struct player p){
@@ -41,23 +46,28 @@ a staticly typing system like json or toml SO
 we would need to interact with a json (or other 
 data storing file format) parsing library :P
  */
+
 player InitGame(){
-	puts("initializing rooms...");
+	DPRINT("initializing game...");
+	DPRINT("\tinitializing rooms...");
 	map_node map = newNode("this room is big and empty", "room one");
 	map->ajacent_nodes[NORTH] = newNode("this room is not really big", "room two");
 
-	puts("initializing player...");
+	DPRINT("\tinitializing player...");
 	player player = newPlayer(map);
 
-	puts("done");
+	DPRINT("\tdone");
 	return player;
 }
 
 void crawlAndDestroy(map_node m);
 
 void DestroyGame(player* p){
+	DPRINT("freeing memmory...");
 	map_node map = (*p)->position;
+	DPRINT("\tfreeing map memmory...");
 	crawlAndDestroy(map);
+	DPRINT("\tfreeing player...");
 	free(*p);
 }
 
