@@ -13,7 +13,7 @@ my progress with a todo list:
     - [ ] dialogue system
     - [x] game api
 - [ ] parse system
-    - [ ] string tokenizing
+    - [ ] string tokenizing (is not good at all for the moment)
     - [x] command mapping
     - [x] handling system
     - [x] parse api
