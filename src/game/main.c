@@ -24,7 +24,7 @@ player newPlayer (map_node initial_pos) {
 
 // map node API
 char* Describe(map_node n){
-	char* s = malloc(100);
+	static char s[150];
 	sprintf(s, "you are at %s, %s", n->name, n->description);
 	return s;
 }
@@ -39,10 +39,16 @@ char* DescribePlayerPos (struct player p){
 	return Describe ( p.position );
 }
 
+void linkNodes (map_node node1, map_node node2, int direction){
+	node1->ajacent_nodes[direction] = node2;
+	node2->ajacent_nodes[(direction+2)%4] = node1;
+
+}
+
 /*
 instead of hardcoding the initialization
 that will be spagetti to type I should implement 
-a staticly typing system like json or toml SO
+a static format like json or toml SO
 we would need to interact with a json (or other 
 data storing file format) parsing library :P
  */
@@ -51,7 +57,8 @@ player InitGame(){
 	DPRINT("initializing game...");
 	DPRINT("\tinitializing rooms...");
 	map_node map = newNode("this room is big and empty", "room one");
-	map->ajacent_nodes[NORTH] = newNode("this room is not really big", "room two");
+	linkNodes(map, newNode("this room is not really big", "room two"), NORTH);
+	linkNodes(map->ajacent_nodes[NORTH], newNode("another empty room og", "room three"), WEST);
 
 	DPRINT("\tinitializing player...");
 	player player = newPlayer(map);
