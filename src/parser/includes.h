@@ -4,5 +4,4 @@
 #include <stdlib.h>
 
 #include "./parser.h"
-#include "../game/game.h"
 #include "../debug.h"

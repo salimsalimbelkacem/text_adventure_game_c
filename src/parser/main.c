@@ -6,22 +6,27 @@
 
 extern struct player* Player;
 
-typedef struct grammar{
+typedef struct grammar
+{
 	char* verbs[10];
 	char* objects[10];
 	char* (*Handle)(char*, char*);
 } grammar;
-
-enum{GO=0, SEE};
+#define GRAMMAR_SIZE 3
+enum{EXIT=0, GO, SEE,};
 
 grammar Grammar[] = {
+	{
+		.verbs={"exit"},
+		.objects=NULL
+	},
 	{
 		.verbs={"go", "walk", "move", "head"},
 		.objects={"north", "east", "south", "west"}
 	},
 	{ 
 		.verbs={"look", "see", "describe"},
-		.objects={""}
+		.objects=NULL
 	}
 };
 
@@ -36,8 +41,7 @@ char** tokenize(char* raw)
 	tokens[0] = strtok(raw_copy," \n");
 
 	DPRINT("\tthe rest...");
-	while(tokens[i] && i<2)
-{
+	while(tokens[i] && i<2) {
 		DPRINT(tokens[i]);
 		tokens[++i] = strtok(NULL," \n");
 	}
@@ -57,7 +61,7 @@ bool lookForStr(char* str, char** arr)
 
 int lookForVerb(char* verb_tok)
 {
-	for(int i = 0; i<2; i++)
+	for(int i = 0; i<GRAMMAR_SIZE; i++)
 {
 		if(lookForStr(verb_tok, Grammar[i].verbs)) return i;
 	}
@@ -66,10 +70,10 @@ int lookForVerb(char* verb_tok)
 
 int lookForobject(char* verb_tok, int index)
 {
-	for(int i = 0; Grammar[index].objects[i]!=NULL; i++)
-{
+	for(int i = 0; Grammar[index].objects[i]!=NULL; i++) {
 		DPRINT(Grammar[index].objects[i]);
-		if(!strcmp(verb_tok, Grammar[index].objects[i])) return i;
+		if(verb_tok!=NULL && !strcmp(verb_tok, Grammar[index].objects[i])) return i;
+		DPRINT("nsm");
 	}
 	return -1;
 }
@@ -88,7 +92,12 @@ char* Parse(char* raw)
 
 	int g_object;
 	switch (verb) {
+		case EXIT:
+			return NULL;
+			break;
 		case GO:
+			DPRINT("searching for the direction...");
+			DPRINT(tokens[1]);
 			g_object = lookForobject(tokens[1], GO);
 			return Handle_go(g_object);
 			break;
@@ -100,6 +109,6 @@ char* Parse(char* raw)
 			break;
 	}
 
-	return "";
+	return NULL;
 }
 
