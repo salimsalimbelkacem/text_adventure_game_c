@@ -7,4 +7,4 @@ CFLAGS := -Wall
 MACROS =
 
 $(OUT): $(IN) $(HEADERS)
-	$(CC) -o $(OUT) $(LIBS) $(IN) $(CFLAGS) $(MACROS)
+	@$(CC) -o $(OUT) $(LIBS) $(IN) $(CFLAGS) $(MACROS)
