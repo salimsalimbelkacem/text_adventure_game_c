@@ -17,4 +17,12 @@ my progress with a todo list:
     - [x] command mapping
     - [x] handling system
     - [x] parse api
-- [ ] io system (front end)
+- [ ] http API
+- [ ] front end
+
+> for the front end i can implement an http API and make a web
+front end or a simple cli client, kinda overkill tbh but may be
+fun idk
+
+> OR i can just have a simple io system that is hardcoded to the
+game which is kinda boring but fair
