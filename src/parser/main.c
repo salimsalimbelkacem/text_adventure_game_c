@@ -3,6 +3,8 @@
 // for now
 #include "./includes.h"
 #include "./handlers.h"
+#include <stdlib.h>
+#include <string.h>
 
 extern struct player* Player;
 
@@ -10,7 +12,7 @@ typedef struct grammar
 {
 	char* verbs[10];
 	char* objects[10];
-	char* (*Handle)(char*, char*);
+	char* (*Handle)(int);
 } grammar;
 #define GRAMMAR_SIZE 3
 enum{EXIT=0, GO, SEE,};
@@ -18,15 +20,18 @@ enum{EXIT=0, GO, SEE,};
 grammar Grammar[] = {
 	{
 		.verbs={"exit"},
-		.objects=NULL
+		.objects={NULL},
+		.Handle=NULL
 	},
 	{
 		.verbs={"go", "walk", "move", "head"},
-		.objects={"north", "east", "south", "west"}
+		.objects={"north", "east", "south", "west"},
+		.Handle=Handle_go
 	},
 	{ 
 		.verbs={"look", "see", "describe"},
-		.objects=NULL
+		.objects={NULL},
+		.Handle=Handle_see
 	}
 };
 
@@ -82,12 +87,15 @@ char* Parse(char* raw)
 {
 	DPRINT("tokenizing the raw input...");
 	char** tokens = tokenize(raw);
+	char* message = NULL;
 
 	DPRINT("searching for the verb...");
 	int verb = lookForVerb(tokens[0]);
 
 	if(verb<0) {
-		return "i don't get what you're talking about";
+		message = malloc(50);
+		strcpy(message, "i don't know what you're talking about");
+		return message;
 	}
 
 	int g_object;
@@ -99,14 +107,14 @@ char* Parse(char* raw)
 			DPRINT("searching for the direction...");
 			DPRINT(tokens[1]);
 			g_object = lookForobject(tokens[1], GO);
-			return Handle_go(g_object);
-			break;
+			return Grammar[GO].Handle(g_object);
 		case SEE:
-			return Handle_see(0);
-			break;
+			return Grammar[SEE].Handle(0);
 		default:
-			return "i don't know how you got here";
-			break;
+
+			message = malloc(50);
+			strcpy(message, "i don't know how you got here");
+			return message;
 	}
 
 	return NULL;

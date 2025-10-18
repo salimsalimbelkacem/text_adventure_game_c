@@ -1,0 +1,2 @@
+#define MAX_MALLOC 50
+#define MAX_LONG_MALLOC 200

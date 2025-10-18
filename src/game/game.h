@@ -16,13 +16,13 @@ struct player{
 };
 
 // map node API
-char* Describe(struct map_node* n);
-
+char* Describe(struct map_node*);
+char* DescribePlayerPos (struct player);
 // player API
-void MovePlayer (struct player* p, int direction);
-char* DescribePlayerPos (struct player p);
+void MovePlayer (struct player*, int direction);
+char* DescribePlayerPos (struct player);
 
 
 struct player* InitGame();
-void DestroyGame(struct player** p);
+void DestroyGame(struct player**);
 #endif
