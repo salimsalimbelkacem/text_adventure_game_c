@@ -6,14 +6,15 @@ a pain in the ear :P
 but for the moment it is pretty empty, but i can kinda ilustrate
 my progress with a todo list:
 - [ ] game system
+    - [x] map system
     - [ ] static map building
     - [ ] inventory system
     - [ ] npc system
     - [ ] dialogue system
-    - [ ] game api
+    - [x] game api
 - [ ] parse system
     - [ ] string tokenizing
-    - [ ] command mapping
-    - [ ] handling system
-    - [ ] parse api
+    - [x] command mapping
+    - [x] handling system
+    - [x] parse api
 - [ ] io system (front end)
