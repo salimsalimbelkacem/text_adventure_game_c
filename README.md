@@ -33,6 +33,10 @@ fun idk.
 OR i can just have a simple io system that is hardcoded to the
 game which is kinda boring but fair.
 
+> if http api, i should have some sort of database to store each
+individual player progress, or a way to store and map player progress
+with their clients and correctly interact and with the game engin.
+
 # game data storage system
 i thought about implementing a doom-like data system where only
 the engin is hardcoded in the game and the rest of the data is inside
