@@ -23,7 +23,7 @@ void gameLoop(){
 	
 	while(true){
 		printf("\n> ");
-		fgets(input, 50, stdin);
+		if(fgets(input, 50, stdin)==NULL) break;
 
 		message = Parse(input);
 		if(message == NULL) break;
@@ -34,5 +34,5 @@ void gameLoop(){
 		DPRINT(message);
 
 	}
-	puts("goodbye");
+	puts("\ngoodbye");
 }
