@@ -48,6 +48,7 @@ char* DescribePlayerPos (struct player p)
 	return describe ( p.position );
 }
 
+//game API
 /*
 instead of hardcoding the initialization
 that will be spagetti to type I should implement 
@@ -71,18 +72,6 @@ player InitGame()
 	return player;
 }
 
-void crawlAndDestroy(map_node m);
-
-void DestroyGame(player* p)
-{
-	DPRINT("freeing memmory...");
-	map_node map = (*p)->position;
-	DPRINT("\tfreeing map memmory...");
-	crawlAndDestroy(map);
-	DPRINT("\tfreeing player...");
-	free(*p);
-}
-
 void crawlAndDestroy(map_node m)
 {
 	if(!m || m->v_free) return;
@@ -92,4 +81,14 @@ void crawlAndDestroy(map_node m)
 		crawlAndDestroy(m->ajacent_nodes[i]);
 	}
 	free(m);
+}
+
+void DestroyGame(player* p)
+{
+	DPRINT("freeing memmory...");
+	map_node map = (*p)->position;
+	DPRINT("\tfreeing map memmory...");
+	crawlAndDestroy(map);
+	DPRINT("\tfreeing player...");
+	free(*p);
 }
