@@ -4,7 +4,7 @@
 #include "./debug.h"
 #include "parser/parser.h"
 
-extern struct player* Player;
+struct player* Player;
 
 void gameLoop();
 

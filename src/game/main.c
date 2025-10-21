@@ -3,7 +3,6 @@
 typedef struct map_node* map_node;
 typedef struct player*	 player;
 
-player Player;
 
 map_node newNode ( const char* description, const char* name) {
 	map_node p = malloc(sizeof(struct map_node));
