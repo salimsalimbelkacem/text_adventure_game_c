@@ -29,7 +29,7 @@ void linkNodes (map_node node1, map_node node2, int direction)
 
 }
 // map node API
-char* Describe(map_node n)
+char* describe(map_node n)
 {
 	static char s[150];
 	sprintf(s, "you are at %s, %s", n->name, n->description);
@@ -45,7 +45,7 @@ void MovePlayer (player p, int direction)
 
 char* DescribePlayerPos (struct player p)
 {
-	return Describe ( p.position );
+	return describe ( p.position );
 }
 
 /*

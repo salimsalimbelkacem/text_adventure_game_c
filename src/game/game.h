@@ -16,7 +16,6 @@ struct player{
 };
 
 // map node API
-char* Describe(struct map_node*);
 char* DescribePlayerPos (struct player);
 // player API
 void MovePlayer (struct player*, int direction);
